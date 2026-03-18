@@ -141,21 +141,22 @@
     }
 
     /* ===== DARK-MODE OVERRIDES (if your site has one) ===== */
-    @media (prefers-color-scheme: dark) {
-      .testi-card-3d {
-        background: #1a1a2e;
-        border-color: rgba(255,255,255,.08);
-      }
-      .testi-dot { background: rgba(255,255,255,.2); }
-      .testi-dot.active { background: #fff; }
-    }
-
+   
     /* ===== MOBILE: shrink scene height ===== */
     @media (max-width: 480px) {
-      .testi-scene { height: 320px; }
-      .testi-card-3d { padding: 1.2rem 1.3rem; }
-      .tc3-quote { -webkit-line-clamp: 5; }
-    }
+  .testi-scene { height: 260px; }
+  .testi-card-3d {
+    width: min(280px, 80vw);
+    padding: 1rem 1.1rem;
+  }
+  .tc3-quote {
+    font-size: 12px;
+    -webkit-line-clamp: 4;
+  }
+  .tc3-stars { font-size: 11px; }
+  .tc3-name { font-size: 12px; }
+  .tc3-avatar { width: 32px; height: 32px; font-size: 11px; }
+}
   </style>
 </head>
 <body>
