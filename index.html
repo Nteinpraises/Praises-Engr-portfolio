@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="icon" href="img/Praises_logo.png"  type="image/png">
+  <link rel="icon" href="img/Praises_logo.png" type="image/png">
   <title>Praises Ntein – Software Engineer</title>
   <link rel="stylesheet" href="index.css">
   <!-- Google Fonts -->
@@ -19,15 +19,153 @@
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>(function(){ emailjs.init({ publicKey:"0lDHHoy67WFYSkY5f" }); })();</script>
 
+  <!-- ── 3-D Testimonial Carousel Styles ── -->
+  <style>
+    /* ===== SCENE WRAPPER ===== */
+    .testi-carousel-wrap {
+      width: 100%;
+      overflow: hidden;          /* clip cards that fly off-screen */
+      padding: 1rem 0 2.5rem;
+    }
+
+    .testi-scene {
+      width: 100%;
+      perspective: 1400px;
+      perspective-origin: 50% 50%;
+      height: 300px;             /* tall enough for the cards */
+      position: relative;
+      touch-action: pan-y;       /* allow vertical scroll, capture horizontal */
+    }
+
+    /* ===== CARD BASE ===== */
+    .testi-card-3d {
+      position: absolute;
+      width: min(360px, 88vw);
+      left: 50%;
+      top: 50%;
+      /* JS drives the full transform */
+      background: var(--card, #ffffff);
+      border: 1px solid rgba(0,0,0,.07);
+      border-radius: 20px;
+      padding: 1.6rem 1.8rem;
+      text-align: left;
+      cursor: grab;
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transition: box-shadow .25s;
+      box-sizing: border-box;
+    }
+    .testi-card-3d:active { cursor: grabbing; }
+
+    /* star row */
+    .tc3-stars {
+      color: #f5a623;
+      font-size: 14px;
+      letter-spacing: 3px;
+      margin-bottom: .7rem;
+    }
+
+    /* quote text */
+    .tc3-quote {
+      font-size: 13.5px;
+      line-height: 1.8;
+      color: var(--text-muted, #111);
+      margin-bottom: 1.1rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* author row */
+    .tc3-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .tc3-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+      letter-spacing: .5px;
+    }
+    .tc3-name {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-primary, #111);
+    }
+    .tc3-company {
+      font-size: 11.5px;
+      color: var(--text-muted, #888);
+      margin-top: 2px;
+    }
+
+    /* ===== DOT INDICATORS ===== */
+    .testi-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 1.5rem;
+    }
+    .testi-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(0,0,0,.18);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: all .35s cubic-bezier(.4,0,.2,1);
+    }
+    .testi-dot.active {
+      width: 26px;
+      border-radius: 4px;
+      background: var(--accent, #111);
+    }
+
+    /* ===== HINT ===== */
+    .testi-hint {
+      text-align: center;
+      font-size: 11.5px;
+      color: var(--text-muted, #aaa);
+      margin-top: .75rem;
+      letter-spacing: .03em;
+    }
+
+    /* ===== DARK-MODE OVERRIDES (if your site has one) ===== */
+    @media (prefers-color-scheme: dark) {
+      .testi-card-3d {
+        background: #1a1a2e;
+        border-color: rgba(255,255,255,.08);
+      }
+      .testi-dot { background: rgba(255,255,255,.2); }
+      .testi-dot.active { background: #fff; }
+    }
+
+    /* ===== MOBILE: shrink scene height ===== */
+    @media (max-width: 480px) {
+      .testi-scene { height: 320px; }
+      .testi-card-3d { padding: 1.2rem 1.3rem; }
+      .tc3-quote { -webkit-line-clamp: 5; }
+    }
+  </style>
 </head>
 <body>
 
 <!-- ===================== NAVBAR ===================== -->
 <div class="nav-wrap" id="navWrap">
   <div class="nav-inner">
-    <a href="#home" class="nav-logo"><img src="img/Praises_logo.png" style=" width:110px; height:110px; " alt="Ntein Praises"></a>
+    <a href="#home" class="nav-logo"><img src="img/Praises_logo.png" style="width:110px;height:110px;" alt="Ntein Praises"></a>
     <nav class="nav-links">
-      <a href="#home"         class="active">Home</a>
+      <a href="#home" class="active">Home</a>
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
@@ -64,15 +202,9 @@
         <p class="hero-role">Software Engineer</p>
         <p class="hero-bio">I empower startups, founders, and digital agencies to build scalable web platforms and SaaS products that grow with their ambitions. Specializing in API-first architectures, automation-driven systems, and AI/LLM solutions for real business impact.</p>
         <div class="hero-contacts">
-          <a href="https://wa.me/237654099666" target="_blank" class="hero-contact-item">
-            <i class="fa fa-phone"></i> Call Me Now
-          </a>
-          <a href="mailto:nteinpraises@gmail.com" target="_blank" class="hero-contact-item">
-            <i class="fa fa-envelope"></i> nteinpraises@gmail.com
-          </a>
-          <a href="https://wa.me/237654099666" target="_blank" class="hero-contact-item">
-            <i class="fa fa-whatsapp"></i> WhatsApp
-          </a>
+          <a href="https://wa.me/237654099666" target="_blank" class="hero-contact-item"><i class="fa fa-phone"></i> Call Me Now</a>
+          <a href="mailto:nteinpraises@gmail.com" target="_blank" class="hero-contact-item"><i class="fa fa-envelope"></i> nteinpraises@gmail.com</a>
+          <a href="https://wa.me/237654099666" target="_blank" class="hero-contact-item"><i class="fa fa-whatsapp"></i> WhatsApp</a>
         </div>
         <div class="hero-social">
           <a href="https://www.facebook.com/nteinpraises.ankinimbom" target="_blank" class="social-icon"><i class="fa fa-facebook"></i></a>
@@ -95,7 +227,6 @@
     </div>
     <div class="about-grid">
       <div class="reveal from-left">
-       
         <div class="highlights">
           <div class="highlight-item"><span class="highlight-arrow">→</span><span>Improved business performance by <strong>30%</strong> at Aboova Digital Solutions through code optimization and AI integration.</span></div>
           <div class="highlight-item"><span class="highlight-arrow">→</span><span>Built automated lead nurturing and sales pipelines, increasing lead generation by <strong>10%</strong>.</span></div>
@@ -113,7 +244,6 @@
         <div class="skill-card"><i class="bi bi-diagram-3 text-primary"></i><p>React</p></div>
         <div class="skill-card"><i class="bi bi-hdd-network text-secondary"></i><p>REST API</p></div>
         <div class="skill-card"><i class="bi bi-cloud-arrow-up text-danger"></i><p>AWS</p></div>
-        
       </div>
     </div>
   </div>
@@ -129,7 +259,7 @@
     </div>
     <div class="tabs-nav">
       <button class="tab-btn active" data-tab="projects-tab">My Projects</button>
-      <button class="tab-btn"        data-tab="skills-tab">Education & Skills</button>
+      <button class="tab-btn" data-tab="skills-tab">Education & Skills</button>
     </div>
     <div id="projects-tab" class="tab-pane active">
       <div class="timeline stagger">
@@ -177,11 +307,9 @@
   <div class="projects-section-inner">
     <div class="section-intro center reveal" style="margin-bottom:48px">
       <span class="section-badge">Selected Work</span>
-      <h2 class="section-heading">Projects I've Built </h2>
+      <h2 class="section-heading">Projects I've Built</h2>
       <p class="section-sub">A look at the products, platforms, and systems I've engineered for clients</p>
     </div>
-
-    <!-- Grid -->
     <div id="projects-grid" class="stagger">
       <div class="project-card" onclick="openProject(0)">
         <div class="card-thumb"><img src="img/Eterna/Eterna4.png" alt="ETERNA NL"></div>
@@ -236,7 +364,7 @@
         <div class="card-body">
           <div class="card-row"><span class="card-tag">Website</span><span class="card-year"></span></div>
           <div class="card-title">Boba-DC</div>
-          <div class="card-desc">Designed the full website, which enabled online surveys, monthly meetings , automated news updates for members.</div>
+          <div class="card-desc">Designed the full website, which enabled online surveys, monthly meetings, automated news updates for members.</div>
           <div class="card-foot">
             <div class="card-pills"><span class="pill-sm">SaaS</span><span class="pill-sm">AWS</span><span class="pill-sm">React</span><span class="pill-sm">MongoDB</span></div>
             <div class="card-arrow">View <svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -267,7 +395,7 @@
         <div>
           <div class="d-tag" id="d-tag"></div>
           <h2 class="d-title" id="d-title"></h2>
-          <p class="d-desc"  id="d-desc"></p>
+          <p class="d-desc" id="d-desc"></p>
           <div class="d-pills" id="d-pills"></div>
           <div class="d-actions">
             <a id="d-live" href="#" class="btn-solid" target="_blank">
@@ -321,7 +449,7 @@
   </div>
 </section>
 
-<!-- ===================== TESTIMONIALS ===================== -->
+<!-- ===================== TESTIMONIALS — 3D CAROUSEL ===================== -->
 <section id="testimonials">
   <div class="section-wrap">
     <div class="section-intro center reveal">
@@ -329,32 +457,15 @@
       <h2 class="section-heading">Testimonials</h2>
       <p class="section-sub">See how I've helped businesses like yours succeed.</p>
     </div>
-    <div class="testi-grid stagger">
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">"The Website Architect have provided exactly what I was looking for; a far better user experience and design refresh for my website visitors. The service has been of a very high standard, quick, easy to communicate with and went the extra mile in providing experienced suggestions for speed optimisation."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">SH</div>
-          <div><div class="testi-name">Standard Healthcare</div></div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">"Professional, responsive, and incredibly fair with his pricing. I've worked with many web developers over the years and Praises is one of the better, if not the best, I've worked with. Always open to trying new things and will let you know what he thinks every step of the way."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">SC</div>
-          <div><div class="testi-name">Soccopoco</div></div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">"Our website was designed just as we had imagined it. From start to finish, he has been patient, detail-oriented, professional, and responsive. We were impressed with his ability to take our vision to the next level. Our website is sleek, minimalistic, quick, concise, and creative — all the things we wanted."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">EN</div>
-          <div><div class="testi-name">ETERNA NL</div></div>
-        </div>
-      </div>
+
+    <!-- Carousel wrapper -->
+    <div class="testi-carousel-wrap">
+      <div class="testi-scene" id="testiScene"></div>
     </div>
+
+    <!-- Dot nav -->
+    <div class="testi-dots" id="testiDots"></div>
+    
   </div>
 </section>
 
@@ -436,10 +547,223 @@
 </div>
 
 <!-- jQuery + Owl -->
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-
 <script src="index.js"></script>
+
+<!-- ══════════════════════════════════════════
+     3-D TESTIMONIAL CAROUSEL — self-contained
+     No dependencies, works on all browsers
+══════════════════════════════════════════ -->
+<script>
+(function () {
+  /* ── DATA ── */
+  var reviews = [
+    {
+      stars: 5,
+      text: '"The Website Architect have provided exactly what I was looking for; a far better user experience and design refresh for my website visitors. The service has been of a very high standard, quick, easy to communicate with and went the extra mile in providing experienced suggestions for speed optimisation."',
+      initials: 'SH',
+      name: 'Standard Healthcare',
+      company: 'Healthcare',
+      color: '#1D9E75'
+    },
+    {
+      stars: 5,
+      text: '"Professional, responsive, and incredibly fair with his pricing. I\'ve worked with many web developers over the years and Praises is one of the better, if not the best, I\'ve worked with. Always open to trying new things and will let you know what he thinks every step of the way."',
+      initials: 'SC',
+      name: 'Soccopoco',
+      company: 'Business',
+      color: '#185FA5'
+    },
+  
+    {
+      stars: 5,
+      text: '"Our website was designed just as we had imagined it. From start to finish, he has been patient, detail-oriented, professional, and responsive. We were impressed with his ability to take our vision to the next level. Our website is sleek, minimalistic, quick, concise, and creative — all the things we wanted."',
+      initials: 'EN',
+      name: 'ETERNA NL',
+      company: 'Brand & Design',
+      color: '#7F77DD'
+    }
+  ];
+
+  /* ── ELEMENTS ── */
+  var scene   = document.getElementById('testiScene');
+  var dotsWrap = document.getElementById('testiDots');
+  if (!scene || !dotsWrap) return;
+
+  var N             = reviews.length;
+  var ANGLE_STEP    = 360 / N;        // degrees between cards
+  var current       = 0;              // active card index
+  var rotateY       = 0;              // current wheel rotation (degrees)
+  var targetRotateY = 0;              // animation target
+  var animating     = false;
+  var timer         = null;
+
+  /* ── BUILD CARDS ── */
+  var cards = reviews.map(function (r, i) {
+    var div = document.createElement('div');
+    div.className = 'testi-card-3d';
+    div.innerHTML =
+      '<div class="tc3-stars">' + '★'.repeat(r.stars) + '</div>' +
+      '<p class="tc3-quote">' + r.text + '</p>' +
+      '<div class="tc3-author">' +
+        '<div class="tc3-avatar" style="background:' + r.color + '">' + r.initials + '</div>' +
+        '<div>' +
+          '<div class="tc3-name">' + r.name + '</div>' +
+          '<div class="tc3-company">' + r.company + '</div>' +
+        '</div>' +
+      '</div>';
+    scene.appendChild(div);
+    return div;
+  });
+
+  /* ── BUILD DOTS ── */
+  var dots = reviews.map(function (_, i) {
+    var btn = document.createElement('button');
+    btn.className = 'testi-dot';
+    btn.setAttribute('aria-label', 'Review ' + (i + 1));
+    btn.addEventListener('click', function () { goTo(i); });
+    dotsWrap.appendChild(btn);
+    return btn;
+  });
+
+  /* ── RADIUS: distance cards sit from centre ── */
+  function getRadius() {
+    var sw = scene.offsetWidth || 320;
+    var cardW = Math.min(360, sw * 0.88);
+    return Math.max(cardW * 0.65, 200);
+  }
+
+  /* ── POSITION ALL CARDS ── */
+  function positionCards() {
+    var r = getRadius();
+    cards.forEach(function (card, i) {
+      var angle = ANGLE_STEP * i + rotateY;   // wheel angle for this card
+      var rad   = angle * Math.PI / 180;
+      var x     = Math.sin(rad) * r;           // horizontal offset
+      var z     = Math.cos(rad) * r;           // depth offset
+
+      /* map z → [0,1] for scale/opacity */
+      var norm  = (z + r) / (2 * r);           // 0 = back, 1 = front
+      var scale = 0.78 + norm * 0.22;
+      var alpha = 0.25 + norm * 0.75;
+
+      card.style.transform =
+        'translateX(calc(-50% + ' + x.toFixed(2) + 'px)) ' +
+        'translateY(-50%) ' +
+        'translateZ(' + z.toFixed(2) + 'px) ' +
+        'scale(' + scale.toFixed(3) + ')';
+      card.style.opacity  = alpha.toFixed(3);
+      card.style.zIndex   = Math.round(z + r);
+    });
+  }
+
+  /* ── UPDATE DOT STATES ── */
+  function updateDots() {
+    dots.forEach(function (d, i) {
+      d.classList.toggle('active', i === ((current % N + N) % N));
+    });
+  }
+
+  /* ── SMOOTH ANIMATION (requestAnimationFrame) ── */
+  function animateTo(targetAngle, duration) {
+    animating = true;
+    var startAngle = rotateY;
+    var diff       = targetAngle - startAngle;
+    var startTime  = null;
+
+    function step(now) {
+      if (!startTime) startTime = now;
+      var t    = Math.min((now - startTime) / duration, 1);
+      /* ease-in-out cubic */
+      var ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      rotateY  = startAngle + diff * ease;
+      positionCards();
+      if (t < 1) {
+        requestAnimationFrame(step);
+      } else {
+        rotateY   = targetAngle;
+        animating = false;
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ── GO TO A SPECIFIC CARD ── */
+  function goTo(index) {
+    current = ((index % N) + N) % N;
+    animateTo(-current * ANGLE_STEP, 750);
+    updateDots();
+    resetTimer();
+  }
+
+  /* ── AUTO-ADVANCE ── */
+  function next() {
+    goTo(current + 1);
+  }
+
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(next, 6000);
+  }
+
+  /* ── DRAG / SWIPE ── */
+  var isDragging   = false;
+  var dragStartX   = 0;
+  var dragStartRot = 0;
+
+  function onDragStart(clientX) {
+    if (animating) return;
+    isDragging   = true;
+    dragStartX   = clientX;
+    dragStartRot = rotateY;
+    clearInterval(timer);
+  }
+
+  function onDragMove(clientX) {
+    if (!isDragging) return;
+    var dx   = clientX - dragStartX;
+    rotateY  = dragStartRot + dx * 0.28;   /* sensitivity */
+    positionCards();
+  }
+
+  function onDragEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+    /* snap to nearest card */
+    var snapped = Math.round(-rotateY / ANGLE_STEP);
+    current     = ((snapped % N) + N) % N;
+    updateDots();
+    animateTo(-current * ANGLE_STEP, 520);
+    resetTimer();
+  }
+
+  /* Mouse */
+  scene.addEventListener('mousedown', function (e) {
+    onDragStart(e.clientX);
+    e.preventDefault();
+  });
+  window.addEventListener('mousemove', function (e) { onDragMove(e.clientX); });
+  window.addEventListener('mouseup',   onDragEnd);
+
+  /* Touch */
+  scene.addEventListener('touchstart', function (e) {
+    onDragStart(e.touches[0].clientX);
+  }, { passive: true });
+  scene.addEventListener('touchmove', function (e) {
+    onDragMove(e.touches[0].clientX);
+  }, { passive: true });
+  scene.addEventListener('touchend', onDragEnd);
+
+  /* Resize */
+  window.addEventListener('resize', positionCards);
+
+  /* ── KICK OFF ── */
+  positionCards();
+  updateDots();
+  resetTimer();
+})();
+</script>
+
 </body>
 </html>
