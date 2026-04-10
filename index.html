@@ -1,6 +1,82 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <!-- ══════════════════════════════════════════
+     PRIMARY SEO
+══════════════════════════════════════════ -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ntein Praises | Software Engineer — Web, SaaS & AI Solutions · Cameroon</title>
+<meta name="description" content="Ntein Praises is a Software Engineer based in Cameroon specializing in web development, SaaS platforms, AI/LLM integration, and automation systems for startups and digital agencies.">
+<meta name="keywords" content="Ntein Praises, software engineer Cameroon, web developer Cameroon, SaaS developer, AI developer, React developer, Node.js developer, automation engineer, full stack developer Africa">
+<meta name="author" content="Ntein Praises Ankinimbom">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://nteinpraises.vercel.app/">
+<meta name="google-site-verification" content="gCw7pEQSPapodpQq_8NjKUa-KbCaBWRaI5GbafPT_ZE" />
+
+<!-- ══════════════════════════════════════════
+     OPEN GRAPH (Facebook, WhatsApp, LinkedIn previews)
+══════════════════════════════════════════ -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nteinpraises.vercel.app/">
+<meta property="og:title" content="Ntein Praises | Software Engineer — Web, SaaS & AI Solutions">
+<meta property="og:description" content="I build scalable web applications, SaaS platforms, and AI-driven automation systems for startups and digital agencies. Based in Cameroon, working globally.">
+<meta property="og:image" content="https://nteinpraises.vercel.app/img/PP.jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Ntein Praises">
+
+<!-- ══════════════════════════════════════════
+     TWITTER / X CARD
+══════════════════════════════════════════ -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://nteinpraises.vercel.app/">
+<meta name="twitter:title" content="Ntein Praises | Software Engineer — Web, SaaS & AI Solutions">
+<meta name="twitter:description" content="I build scalable web applications, SaaS platforms, and AI-driven automation systems for startups and digital agencies.">
+<meta name="twitter:image" content="https://nteinpraises.vercel.app/img/PP.jpeg">
+
+<!-- ══════════════════════════════════════════
+     STRUCTURED DATA (Google Rich Results)
+     This tells Google exactly who you are
+══════════════════════════════════════════ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Ntein Praises Ankinimbom",
+  "url": "https://nteinpraises.vercel.app",
+  "image": "https://nteinpraises.vercel.app/img/PP.jpeg",
+  "jobTitle": "Software Engineer",
+  "description": "Software Engineer specializing in web development, SaaS platforms, AI/LLM integration, and automation systems.",
+  "email": "nteinpraises@gmail.com",
+  "telephone": "+237654099666",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "CM",
+    "addressRegion": "Cameroon"
+  },
+  "sameAs": [
+    "https://github.com/Nteinpraises",
+    "https://wa.me/237654099666"
+  ],
+  "knowsAbout": [
+    "JavaScript", "TypeScript", "React", "Node.js",
+    "SaaS Development", "AI Integration", "AWS", "REST APIs",
+    "Web Development", "Software Automation"
+  ],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Freelance / Independent"
+  }
+}
+</script>
+
+<!-- ══════════════════════════════════════════
+     FAVICON (add a real favicon.ico to your project)
+══════════════════════════════════════════ -->
+<link rel="icon" type="image/png" href="/img/Praises_logo.png">
+<link rel="apple-touch-icon" href="/img/Praises_logo.png">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="icon" href="img/Praises_logo.png" type="image/png">
@@ -19,145 +95,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>(function(){ emailjs.init({ publicKey:"0lDHHoy67WFYSkY5f" }); })();</script>
 
-  <!-- ── 3-D Testimonial Carousel Styles ── -->
-  <style>
-    /* ===== SCENE WRAPPER ===== */
-    .testi-carousel-wrap {
-      width: 100%;
-      overflow: hidden;          /* clip cards that fly off-screen */
-      padding: 1rem 0 2.5rem;
-    }
-
-    .testi-scene {
-      width: 100%;
-      perspective: 1400px;
-      perspective-origin: 50% 50%;
-      height: 300px;             /* tall enough for the cards */
-      position: relative;
-      touch-action: pan-y;       /* allow vertical scroll, capture horizontal */
-    }
-
-    /* ===== CARD BASE ===== */
-    .testi-card-3d {
-      position: absolute;
-      width: min(360px, 88vw);
-      left: 50%;
-      top: 50%;
-      /* JS drives the full transform */
-      background: var(--card, #ffffff);
-      border: 1px solid rgba(0,0,0,.07);
-      border-radius: 20px;
-      padding: 1.6rem 1.8rem;
-      text-align: left;
-      cursor: grab;
-      will-change: transform, opacity;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      transition: box-shadow .25s;
-      box-sizing: border-box;
-    }
-    .testi-card-3d:active { cursor: grabbing; }
-
-    /* star row */
-    .tc3-stars {
-      color: #f5a623;
-      font-size: 14px;
-      letter-spacing: 3px;
-      margin-bottom: .7rem;
-    }
-
-    /* quote text */
-    .tc3-quote {
-      font-size: 13.5px;
-      line-height: 1.8;
-      color: var(--text-muted, #111);
-      margin-bottom: 1.1rem;
-      display: -webkit-box;
-      -webkit-line-clamp: 4;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    /* author row */
-    .tc3-author {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .tc3-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: 700;
-      color: #fff;
-      flex-shrink: 0;
-      letter-spacing: .5px;
-    }
-    .tc3-name {
-      font-size: 13.5px;
-      font-weight: 600;
-      color: var(--text-primary, #111);
-    }
-    .tc3-company {
-      font-size: 11.5px;
-      color: var(--text-muted, #888);
-      margin-top: 2px;
-    }
-
-    /* ===== DOT INDICATORS ===== */
-    .testi-dots {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 1.5rem;
-    }
-    .testi-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: rgba(0,0,0,.18);
-      border: none;
-      padding: 0;
-      cursor: pointer;
-      transition: all .35s cubic-bezier(.4,0,.2,1);
-    }
-    .testi-dot.active {
-      width: 26px;
-      border-radius: 4px;
-      background: var(--accent, #111);
-    }
-
-    /* ===== HINT ===== */
-    .testi-hint {
-      text-align: center;
-      font-size: 11.5px;
-      color: var(--text-muted, #aaa);
-      margin-top: .75rem;
-      letter-spacing: .03em;
-    }
-
-    /* ===== DARK-MODE OVERRIDES (if your site has one) ===== */
-   
-    /* ===== MOBILE: shrink scene height ===== */
-    @media (max-width: 480px) {
-  .testi-scene { height: 260px; }
-  .testi-card-3d {
-    width: min(280px, 80vw);
-    padding: 1rem 1.1rem;
-  }
-  .tc3-quote {
-    font-size: 12px;
-    -webkit-line-clamp: 4;
-  }
-  .tc3-stars { font-size: 11px; }
-  .tc3-name { font-size: 12px; }
-  .tc3-avatar { width: 32px; height: 32px; font-size: 11px; }
-}
-  </style>
 </head>
 <body>
 

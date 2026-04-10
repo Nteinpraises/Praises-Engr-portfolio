@@ -1318,3 +1318,140 @@ footer {
   .section-heading { font-size: 26px; }
   .d-actions    { flex-direction: column; }
 }
+
+   /* ===== SCENE WRAPPER ===== */
+    .testi-carousel-wrap {
+      width: 100%;
+      overflow: hidden;          /* clip cards that fly off-screen */
+      padding: 1rem 0 2.5rem;
+    }
+
+    .testi-scene {
+      width: 100%;
+      perspective: 1400px;
+      perspective-origin: 50% 50%;
+      height: 300px;             /* tall enough for the cards */
+      position: relative;
+      touch-action: pan-y;       /* allow vertical scroll, capture horizontal */
+    }
+
+    /* ===== CARD BASE ===== */
+    .testi-card-3d {
+      position: absolute;
+      width: min(360px, 88vw);
+      left: 50%;
+      top: 50%;
+      /* JS drives the full transform */
+      background: var(--card, #ffffff);
+      border: 1px solid rgba(0,0,0,.07);
+      border-radius: 20px;
+      padding: 1.6rem 1.8rem;
+      text-align: left;
+      cursor: grab;
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transition: box-shadow .25s;
+      box-sizing: border-box;
+    }
+    .testi-card-3d:active { cursor: grabbing; }
+
+    /* star row */
+    .tc3-stars {
+      color: #f5a623;
+      font-size: 14px;
+      letter-spacing: 3px;
+      margin-bottom: .7rem;
+    }
+
+    /* quote text */
+    .tc3-quote {
+      font-size: 13.5px;
+      line-height: 1.8;
+      color: var(--text-muted, #111);
+      margin-bottom: 1.1rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* author row */
+    .tc3-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .tc3-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+      letter-spacing: .5px;
+    }
+    .tc3-name {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-primary, #111);
+    }
+    .tc3-company {
+      font-size: 11.5px;
+      color: var(--text-muted, #888);
+      margin-top: 2px;
+    }
+
+    /* ===== DOT INDICATORS ===== */
+    .testi-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 1.5rem;
+    }
+    .testi-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(0,0,0,.18);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: all .35s cubic-bezier(.4,0,.2,1);
+    }
+    .testi-dot.active {
+      width: 26px;
+      border-radius: 4px;
+      background: var(--accent, #111);
+    }
+
+    /* ===== HINT ===== */
+    .testi-hint {
+      text-align: center;
+      font-size: 11.5px;
+      color: var(--text-muted, #aaa);
+      margin-top: .75rem;
+      letter-spacing: .03em;
+    }
+
+    /* ===== DARK-MODE OVERRIDES (if your site has one) ===== */
+   
+    /* ===== MOBILE: shrink scene height ===== */
+    @media (max-width: 480px) {
+  .testi-scene { height: 260px; }
+  .testi-card-3d {
+    width: min(280px, 80vw);
+    padding: 1rem 1.1rem;
+  }
+  .tc3-quote {
+    font-size: 12px;
+    -webkit-line-clamp: 4;
+  }
+  .tc3-stars { font-size: 11px; }
+  .tc3-name { font-size: 12px; }
+  .tc3-avatar { width: 32px; height: 32px; font-size: 11px; }
+}
