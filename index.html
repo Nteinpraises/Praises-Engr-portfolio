@@ -571,11 +571,35 @@
       var muteBtn = div.querySelector('.tc3-mute-btn');
 
       /* mute toggle */
-      muteBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        videoEl.muted = !videoEl.muted;
-        muteBtn.classList.toggle('unmuted', !videoEl.muted);
-      });
+      /* mute toggle */
+muteBtn.addEventListener('click', function (e) {
+  e.stopPropagation();
+  videoEl.muted = !videoEl.muted;
+  muteBtn.classList.toggle('unmuted', !videoEl.muted);
+
+  if (!videoEl.muted) {
+    /* user unmuted — play to end then advance */
+    videoEl.loop = false;
+    clearInterval(timer);
+    videoEl.currentTime = 0;
+    videoEl.play().catch(function(){});
+
+    /* when video naturally ends, go to next card */
+    videoEl.addEventListener('ended', function onEnded() {
+      videoEl.removeEventListener('ended', onEnded);
+      videoEl.muted = true;
+      videoEl.loop = true;
+      muteBtn.classList.remove('unmuted');
+      goTo(current + 1);
+    });
+
+  } else {
+    /* user re-muted — go back to looping + timer */
+    videoEl.loop = true;
+    videoEl.play().catch(function(){});
+    resetTimer();
+  }
+});
 
     } else {
       /* text card */
