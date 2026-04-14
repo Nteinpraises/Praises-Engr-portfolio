@@ -496,10 +496,8 @@
 <script>
 (function () {
 
-  /* ── VIDEO PATH — change this to your actual MP4 file ── */
-  var VIDEO_SRC = 'img/vid_1.mp4'; /* <-- put your MP4 here */
+  var VIDEO_SRC = 'img/vid_1.mp4'; /* your cloudinary URL here */
 
-  /* ── DATA ── */
   var reviews = [
     {
       type: 'video',
@@ -535,7 +533,6 @@
     }
   ];
 
-  /* ── ELEMENTS ── */
   var scene    = document.getElementById('testiScene');
   var dotsWrap = document.getElementById('testiDots');
   if (!scene || !dotsWrap) return;
@@ -546,18 +543,19 @@
   var rotateY    = 0;
   var animating  = false;
   var timer      = null;
-  var held       = false;   /* true while user holds the carousel */
+  var held       = false;
+  var videoWatching = false; /* TRUE while user is watching unmuted — blocks timer */
+
+  var cards   = [];
+  var videoEl = null;
+  var muteBtn = null;
 
   /* ── BUILD CARDS ── */
-  var cards     = [];
-  var videoEl   = null;   /* reference to the <video> element */
-
   reviews.forEach(function (r, i) {
     var div = document.createElement('div');
     div.className = 'testi-card-3d';
 
     if (r.type === 'video') {
-      /* video card */
       div.classList.add('tc3-video-card');
       div.innerHTML =
         '<video class="tc3-video" src="' + r.src + '" playsinline muted loop preload="metadata"></video>' +
@@ -568,41 +566,45 @@
         '<div class="tc3-video-label">' + r.label + '</div>';
 
       videoEl = div.querySelector('.tc3-video');
-      var muteBtn = div.querySelector('.tc3-mute-btn');
+      muteBtn = div.querySelector('.tc3-mute-btn');
 
-      /* mute toggle */
-      /* mute toggle */
-muteBtn.addEventListener('click', function (e) {
-  e.stopPropagation();
-  videoEl.muted = !videoEl.muted;
-  muteBtn.classList.toggle('unmuted', !videoEl.muted);
+      /* ── MUTE TOGGLE ── */
+      muteBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
 
-  if (!videoEl.muted) {
-    /* user unmuted — play to end then advance */
-    videoEl.loop = false;
-    clearInterval(timer);
-    videoEl.currentTime = 0;
-    videoEl.play().catch(function(){});
+        if (!videoEl.muted) {
+          /* user is RE-MUTING — go back to loop mode */
+          videoWatching = false;
+          videoEl.muted = true;
+          videoEl.loop  = true;
+          muteBtn.classList.remove('unmuted');
+          videoEl.play().catch(function(){});
+          resetTimer();
 
-    /* when video naturally ends, go to next card */
-    videoEl.addEventListener('ended', function onEnded() {
-      videoEl.removeEventListener('ended', onEnded);
-      videoEl.muted = true;
-      videoEl.loop = true;
-      muteBtn.classList.remove('unmuted');
-      goTo(current + 1);
-    });
+        } else {
+          /* user is UNMUTING — play to end then advance */
+          videoWatching = true;
+          videoEl.muted = false;
+          videoEl.loop  = false;
+          muteBtn.classList.add('unmuted');
+          clearInterval(timer); /* kill the timer completely */
+          videoEl.currentTime = 0;
+          videoEl.play().catch(function(){});
 
-  } else {
-    /* user re-muted — go back to looping + timer */
-    videoEl.loop = true;
-    videoEl.play().catch(function(){});
-    resetTimer();
-  }
-});
+          /* one-time listener: fires when video reaches the end */
+          function onEnded() {
+            videoEl.removeEventListener('ended', onEnded);
+            videoWatching = false;
+            videoEl.muted = true;
+            videoEl.loop  = true;
+            muteBtn.classList.remove('unmuted');
+            goTo(current + 1); /* advance AFTER video finishes */
+          }
+          videoEl.addEventListener('ended', onEnded);
+        }
+      });
 
     } else {
-      /* text card */
       div.innerHTML =
         '<div class="tc3-stars">' + '★'.repeat(r.stars) + '</div>' +
         '<p class="tc3-quote">' + r.text + '</p>' +
@@ -659,7 +661,7 @@ muteBtn.addEventListener('click', function (e) {
     });
   }
 
-  /* ── VIDEO PLAY/PAUSE based on which card is front ── */
+  /* ── VIDEO SYNC ── */
   function syncVideo() {
     if (!videoEl) return;
     var frontIdx = ((current % N) + N) % N;
@@ -704,20 +706,25 @@ muteBtn.addEventListener('click', function (e) {
 
   /* ── GO TO CARD ── */
   function goTo(index) {
+    /* if user is watching unmuted video, do NOT advance automatically */
+    if (videoWatching) return;
     current = ((index % N) + N) % N;
     animateTo(-current * ANGLE_STEP, 750, syncVideo);
     updateDots();
     resetTimer();
   }
 
-  /* ── AUTO-ADVANCE ── */
+  /* ── AUTO-ADVANCE TIMER ── */
   function next() {
-    if (!held) goTo(current + 1);
+    /* double-check: never fire while user is watching */
+    if (held || videoWatching) return;
+    goTo(current + 1);
   }
 
   function resetTimer() {
     clearInterval(timer);
-    /* video card gets 12s, text cards get 5s */
+    /* if currently watching unmuted video, don't start a new timer */
+    if (videoWatching) return;
     var delay = (reviews[((current % N)+N)%N].type === 'video') ? 12000 : 5000;
     timer = setInterval(next, delay);
   }
@@ -775,6 +782,5 @@ muteBtn.addEventListener('click', function (e) {
 
 })();
 </script>
-
 </body>
 </html>
