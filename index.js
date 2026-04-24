@@ -107,8 +107,8 @@ const projects = [
     tag:'Website', title:'Jania', year:'', live:'https://jania.vercel.app/',
     desc:'Built an end-to-end digital portfolio platform for EcoHub & Girl Charge founder, integrating custom blog CMS for self-managed event updates; the system established her online presence and has boosted her audience engagement by 25%.',
     pills:['Javascript','Firebase','Node.js','AWS','GoHighlevel'],
-    main:'img/jania/jania1.png',
-    shots:['img/jania/jania2.png','img/jania/jania3.png','img/jania/jania4.png','img/jania/jania5.png']
+    main:'img/Jania/jan1.png',
+    shots:['img/Jania/jan2.png','img/Jania/jan3.png','img/Jania/jan4.png','img/Jania/jan5.png']
   },
   {
     tag:'Website', title:'Cleanso Therapy', year:'', live:'https://ctpoglobal.com/',
