@@ -104,6 +104,13 @@ const projects = [
     shots:['img/Boba-DC/boba2.png','img/Boba-DC/boba3.png','img/Boba-DC/boba4.png','img/Boba-DC/boba5.png']
   },
   {
+    tag:'Website', title:'Jania', year:'', live:'https://jania.vercel.app/',
+    desc:'Built an end-to-end digital portfolio platform for EcoHub & Girl Charge founder, integrating custom blog CMS for self-managed event updates; the system established her online presence and has boosted her audience engagement by 25%.',
+    pills:['Javascript','Firebase','Node.js','AWS','GoHighlevel'],
+    main:'img/jania/jania1.png',
+    shots:['img/jania/jania2.png','img/jania/jania3.png','img/jania/jania4.png','img/jania/jania5.png']
+  },
+  {
     tag:'Website', title:'Cleanso Therapy', year:'', live:'https://ctpoglobal.com/',
     desc:'Delivered a sleek, minimalistic, and fast full-stack web platform for Cleanso Therapy. Its creative design direction, clean codebase, and the seamless developer-client collaboration was greatly appreciated throughout the entire build.',
     pills:['React','Node.js','TypeScript','REST API','Javascript'],
