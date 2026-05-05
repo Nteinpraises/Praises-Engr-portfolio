@@ -97,7 +97,7 @@ const projects = [
     shots:['img/Yman Auto/yman2.png','img/Yman Auto/yman3.png','img/Yman Auto/yman4.png','img/Yman Auto/yman5.png']
   },
   {
-    tag:'Website', title:'BOBA-DC', year:'', live:'https://bobadc.org/',
+    tag:'Website', title:'BOBA-DC', year:'', live:'https://bobadc.org/home',
     desc:'Architected a production-ready, cloud-native backend infrastructure for a high-traffic SaaS product. Designed for horizontal scalability with containerized microservices, load balancing, automated deployments, and zero-downtime rollouts.',
     pills:['AWS','SaaS','Node.js','MongoDB','GoHighlevel'],
     main:'img/Boba-DC/boba1.png',
